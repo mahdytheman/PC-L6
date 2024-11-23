@@ -1,0 +1,47 @@
+
+
+
+/* ================= Headings ==================== */
+ *{
+   font-family: tahoma
+ }
+h1,h3{
+  text-align:center;
+  font-family: tahoma;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  color:rgb(68, 68, 68);
+}
+/* Buttons */
+.button{
+    background-color: rgb(24, 194, 250) ;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: background-color 200ms ease-in-out
+
+  }
+
+  .button:hover{
+    background-color:  rgb(14, 183, 238)
+  }
+/* ================= Table ==================== */
+
+table {
+text-align: center;
+margin: 0 auto;
+}
+
+
+tbody td{
+  padding: 15px;
+  background-color: rgb(230, 254, 255)
+}
+thead  td{
+  padding: 15px;
+  background-color: rgb(69, 69, 69);
+  color:#fff;
+  border: rgb(36, 149, 255)
+}

@@ -1,0 +1,109 @@
+/* ============== Headings ============== */
+
+h1{
+    text-align:center;
+    font-family: tahoma;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    color:rgb(68, 68, 68)
+  }
+  /* ============== Forms ============== */
+  
+  form{
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  input, textarea{
+    font-family: tahoma;
+    display: block;
+    margin: 15px auto;
+    border: 1px solid #dddddd ;
+    width: 30%;
+      padding: 15px;
+    outline:0;
+    background-color: rgba(#e7edee, 0.89);
+    color:rgb(179, 179, 179) ;
+    border: 1px solid #DDDDDD;
+    margin-bottom: 2px;
+  }
+  
+  input[type="submit"]{
+    color:white;
+    width: 15%;
+    background-color: #535b63;
+      border: 0;
+      cursor: pointer;
+      font-weight: bold;
+  }
+  
+  h3{
+    color:rgb(180, 0, 0);
+    font-weight: 200;
+    text-align: center;
+  
+  }
+  
+  input[type="text"]:focus{
+    box-shadow:0 0 5px rgba(81, 203, 238, 1);
+    border:1px solid  rgba(24, 191, 238, 1)
+  
+  }
+  
+  /* ============== Danger and redirecting messages ============== */
+  
+  
+  .danger p {
+  
+  color:red;
+  font-family: tahoma;
+  margin-top: 3px;
+  margin-bottom: 40px;
+  font-size: 12px
+  
+  
+  }
+  
+  .working{
+    background-color: rgb(20, 215, 109);
+    font-size: 15px;
+    width: 300px;
+    margin: 0 auto;
+    padding: 15px;
+    font-family: Arial;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+  }
+  
+  .displayNone{
+    display: none
+  }
+  
+  /*  Error Messages */
+  .error-input{
+    box-shadow:0 0 5px rgba(247, 33, 65, 0.37);
+    border-color: rgb(222, 17, 52);
+  }
+  
+  #input-email{
+    display:inline-block;
+    position: relative;
+    right:8px
+  }
+  
+/*  i {
+    position: relative  ;
+    top:48px;
+    left:14%;
+    font-size: 15px;
+    color:rgb(246, 15, 38);
+    z-index: 1
+
+  } */
+  i.hide-icon{
+    visibility: hidden;
+    /* display: none  */
+  }
+  

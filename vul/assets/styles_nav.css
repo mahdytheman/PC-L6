@@ -1,0 +1,32 @@
+
+/* ================= NAV ==================== */
+ul {
+  display: flex;
+  justify-content: center;
+  margin:0px ;
+  padding:  0px;
+  background-color: rgb(255, 137, 113)
+
+}
+li{
+  list-style: none;
+  width: 25%
+}
+li  a {
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 15px 0px;
+  font-family: tahoma;
+  color:#fff ;
+  transition: background-color 200ms ease-in-out ;
+}
+li a:hover{
+  background-color:rgb(246, 115, 89)
+
+}
+body {
+  margin:0px ;
+  padding:  0px
+}

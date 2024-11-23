@@ -1,0 +1,100 @@
+*{
+    font-family: "Lato",sans-serif; 
+    color: #555;
+}
+h1{
+    text-align: center;
+}
+
+.row{
+    background-color: #f4f4f4;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    height: 100px;
+}
+.col{
+    width: 29%;
+    margin-left: 2%;
+    margin-right: 2%;
+    height: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.card{
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0px 2px 2px #efefef;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: scale(1);
+}
+
+.card:hover{
+    box-shadow: -9px 4px 2px #efefef;
+    transform: scale(1.046);
+}
+
+.h3{
+    background-color: rgb(203, 203, 203);
+    text-transform: uppercase;
+    font-size: 95%;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 7% 5% 4% 8%;
+}
+
+.name{
+    color: #fb8a3f;
+    font-size: 190%;
+    margin: -10px 0px;
+    padding: 10px 10px 10px 23px;
+    font-weight: 600;
+}
+
+.pizza-name, .pizza-ing{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.ing li{
+    list-style: none;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+.ing li i{
+    width: 15%;
+    text-align: center;
+    font-size: 120%;
+    color: #ef6d17;
+    position: relative;
+    top: 2px;
+}
+
+ul.ing{
+    padding-left: 5%;
+    margin-bottom: 0px;
+}
+
+.view-more{
+    text-align: center;
+    padding: 40px 0px 50px 0px;
+}
+
+
+.view-more .btn{
+    font-size: 20px;
+    text-decoration: none;
+    background-color: #ef6d17;
+    color: #fff;
+    padding: 10px 30px 15px 40px;
+    border-radius: 200px;
+    transition: background-color 0.45s ease-in-out;
+}
+
+.view-more .btn:hover{
+    background-color: #bd520b;
+}
+
