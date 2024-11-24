@@ -69,7 +69,7 @@ if (isset($_POST['login'])) {
                 // Step 3: Generate and Email 2FA Code
                 $twoFACode = random_int(100000, 999999); // 6-digit code
                 $_SESSION['2fa_code'] = $twoFACode;
-                $_SESSION['2fa_expiry'] = time() + 300; // Code valid for 5 minutes
+                $_SESSION['2fa_expiry'] = time() + 180; // Code valid for 5 minutes
                 $_SESSION['waiting_for_2fa'] = true; // Set 2FA waiting flag
 
                 // Send 2FA code via Gmail SMTP using PHPMailer
@@ -77,12 +77,12 @@ if (isset($_POST['login'])) {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'your_email@gmail.com'; // Your Gmail email
-                $mail->Password = 'your_app_password';    // Your Gmail app password
+                $mail->Username = 'geniusassignments123@gmail.com'; // Your Gmail email
+                $mail->Password = 'Pizza123*';    // Your Gmail app password
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
 
-                $mail->setFrom('your_email@gmail.com', 'Your Website');
+                $mail->setFrom('geniusassignments123@gmail.com', 'Your Website');
                 $mail->addAddress($row['email']); // User's email address
                 $mail->Subject = 'Your 2FA Code';
                 $mail->Body = "Your 2FA code is: $twoFACode";

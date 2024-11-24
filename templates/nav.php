@@ -1,8 +1,6 @@
 <?php
 // Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+session_start();
 
 // Initialize session variables
 $current_username = $_SESSION['username'] ?? null;
