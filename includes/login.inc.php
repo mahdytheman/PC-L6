@@ -1,4 +1,4 @@
-\<?php
+<?php
 // Connection
 include('config/db_connect.php');
 require 'vendor/autoload.php'; // Include Composer autoloader for PHPMailer
@@ -10,17 +10,27 @@ $errors = ["username" => "", "password" => "", "2fa" => ""];
 $username = $password = "";
 $sharedKey = "";
 
-// Start session for 2FA
+// Secure session setup
+session_set_cookie_params([
+    'lifetime' => 0,
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Strict',
+]);
 session_start();
 
 if (isset($_POST['login'])) {
     // Step 1: Validate Username and Password
-    if (!empty($_POST['username-valid'])) {
+    if (!empty($_POST['username'])) {
         $username = htmlspecialchars($_POST['username']);
+    } else {
+        $errors['username'] = "Username is required!";
     }
 
-    if (!empty($_POST['password-valid'])) {
+    if (!empty($_POST['password'])) {
         $password = htmlspecialchars($_POST['password']);
+    } else {
+        $errors['password'] = "Password is required!";
     }
 
     if ($username && $password) {
@@ -55,11 +65,12 @@ if (isset($_POST['login'])) {
                 // Store sharedKey and username in session, but don't log in yet
                 $_SESSION['shared_key'] = $sharedKey;
                 $_SESSION['username'] = $username;
-                $_SESSION['waiting_for_2fa'] = true; // Set 2FA waiting flag
 
                 // Step 3: Generate and Email 2FA Code
                 $twoFACode = random_int(100000, 999999); // 6-digit code
                 $_SESSION['2fa_code'] = $twoFACode;
+                $_SESSION['2fa_expiry'] = time() + 300; // Code valid for 5 minutes
+                $_SESSION['waiting_for_2fa'] = true; // Set 2FA waiting flag
 
                 // Send 2FA code via Gmail SMTP using PHPMailer
                 $mail = new PHPMailer;
@@ -82,6 +93,8 @@ if (isset($_POST['login'])) {
                     exit();
                 } else {
                     $errors['2fa'] = "Failed to send 2FA code. Please try again.";
+                    session_unset();
+                    session_destroy();
                 }
             } else {
                 $errors['password'] = "Password is incorrect!";

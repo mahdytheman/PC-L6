@@ -10,12 +10,24 @@ if (empty($_SESSION['waiting_for_2fa']) || $_SESSION['waiting_for_2fa'] !== true
 $errors = ["2fa" => ""];
 
 if (isset($_POST['verify_2fa'])) {
-    $inputCode = $_POST['2fa_code'];
+    $inputCode = htmlspecialchars($_POST['2fa_code']); // Sanitize input
+
+    // Check if the 2FA code has expired
+    if (time() > $_SESSION['2fa_expiry']) {
+        $errors['2fa'] = "The 2FA code has expired. Please log in again.";
+        session_unset();
+        session_destroy();
+        header('Location: login.php');
+        exit();
+    }
+
+    // Verify 2FA code
     if ($inputCode == $_SESSION['2fa_code']) {
         // 2FA code is correct, log the user in
         $_SESSION['logged_in'] = true;
         unset($_SESSION['waiting_for_2fa']); // Remove 2FA waiting flag
         unset($_SESSION['2fa_code']); // Remove the 2FA code
+        unset($_SESSION['2fa_expiry']); // Remove expiry timestamp
 
         // Redirect to the main page (after successful login)
         header('Location: index_menu.php');
