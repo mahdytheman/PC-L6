@@ -3,14 +3,24 @@
 include('config/db_connect.php');
 
 // Essential Variables
-$errors = ["username" => "", "email" => ""];
-$username = $email = $password = $hashedPass = $salt = "";
-$username_valid = $email_valid = $password_valid = false;
+$errors = ["username" => "", "password" => ""];
+$username = $password = "";
 
-if (isset($_POST['signup'])) {
-    // Username Validation
-    if (!empty($_POST['username'])) {
+if (isset($_POST['login'])) {
+    // Check hidden inputs
+    if (!empty($_POST['username-valid'])) {
+        // Grab username input, prevent XSS
         $username = htmlspecialchars($_POST['username']);
+    }
+
+    if (!empty($_POST['password-valid'])) {
+        // Grab password input, prevent XSS
+        $password = htmlspecialchars($_POST['password']);
+    }
+
+    // Check username and password in DB
+    if ($username && $password) {
+        // Query to check if user exists
         $sql = "SELECT * FROM accounts WHERE username = ?";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "s", $username);
@@ -18,50 +28,35 @@ if (isset($_POST['signup'])) {
         $result = mysqli_stmt_get_result($stmt);
 
         if (mysqli_num_rows($result) > 0) {
-            $errors['username'] = "Username already exists!";
+            // User exists
+            $row = mysqli_fetch_assoc($result);
+
+            // Retrieve salt and hashed password from DB
+            $storedSalt = $row['salt'];
+            $storedHash = $row['password'];
+
+            // Combine the retrieved salt with the input password
+            $inputPasswordWithSalt = $storedSalt . $password;
+
+            // Verify the combined password and salt against the stored hash
+            if (password_verify($inputPasswordWithSalt, $storedHash)) {
+                // Password is correct
+                session_start();
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['email'] = $row['email'];
+
+                // Regenerate session ID to mitigate session fixation
+                session_regenerate_id(true);
+
+                header('Location: index_menu.php');
+                exit();
+            } else {
+                // Password doesn't match
+                $errors['password'] = "Password is incorrect!";
+            }
         } else {
-            $username_valid = true;
-        }
-    }
-
-    // Email Validation
-    if (!empty($_POST['email'])) {
-        $email = htmlspecialchars($_POST['email']);
-        $sql = "SELECT * FROM accounts WHERE email = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "s", $email);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-
-        if (mysqli_num_rows($result) > 0) {
-            $errors['email'] = "Email already exists!";
-        } else {
-            $email_valid = true;
-        }
-    }
-
-    // Password Handling
-    if (!empty($_POST['password2'])) {
-        $password = htmlspecialchars($_POST['password2']);
-        // Generate a custom salt
-        $salt = bin2hex(random_bytes(16)); // 16 bytes = 32-character salt
-        // Append salt to the password and hash
-        $saltedPassword = $salt . $password;
-        $hashedPass = password_hash($saltedPassword, PASSWORD_DEFAULT);
-        $password_valid = true;
-    }
-
-    // Insert into Database
-    if ($password_valid && $email_valid && $username_valid) {
-        $sql = "INSERT INTO accounts (username, email, password, salt) VALUES (?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "ssss", $username, $email, $hashedPass, $salt);
-
-        if (mysqli_stmt_execute($stmt)) {
-            header("location: login.php");
-            exit(); // Stop script execution after redirection
-        } else {
-            echo "ERROR: " . mysqli_error($conn);
+            // Username doesn't exist
+            $errors['username'] = "Username doesn't exist!";
         }
     }
 }
