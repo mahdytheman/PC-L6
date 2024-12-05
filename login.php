@@ -16,16 +16,18 @@ include("includes/login.inc.php");
     <h1>Log In</h1>
 
     <form id="validate" action="login.php" method="POST">
-        <input type="text" name="username" value="<?php echo $username ?>" placeholder="Enter your username..">
-        <div class="danger"> <p><?php echo $errors['username'] ?></p> </div>
-        <input type="hidden" name="username-valid" value="">
+    <input type="text" name="username" value="<?php echo $username ?>" placeholder="Enter your username..">
+    <div class="danger"> <p><?php echo $errors['username'] ?></p> </div>
 
-        <input type="password" name="password" value="" placeholder="Enter your password..">
-        <div class="danger"> <p><?php echo $errors['password'] ?></p> </div>
-        <input type="hidden" name="password-valid" value="">
+    <input type="password" name="password" value="" placeholder="Enter your password..">
+    <div class="danger"> <p><?php echo $errors['password'] ?></p> </div>
 
-        <input type="submit" name="login" value="Login">
-    </form>
+    <input type="text" name="totp" placeholder="Enter authentication code..">
+    <div class="danger"> <p><?php echo $errors['totp'] ?></p> </div>
+
+    <input type="submit" name="login" value="Login">
+</form>
+
 
     <script type="text/javascript" src="js/formValidationLogin.js"></script>
 </body>
