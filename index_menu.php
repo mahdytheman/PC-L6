@@ -1,5 +1,5 @@
 <?php
-include("includes/index.inc.php");
+include("includes/menu.inc.php");
 $count = count($rows);
 ?>
 <!-- index_menu.php: Menu -->

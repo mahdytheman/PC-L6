@@ -30,6 +30,7 @@ if (isset($_SESSION['username'])) {
       <!-- if normal user / admin -->
       <?php if ($current_username) { ?>
       <li> <a href="search.php"> Search </a> </li>
+      <li> <a href="reservations.php"> Reservations </a> </li>
       <li> <a href="includes/logout.inc.php"> Logout </a> </li>
       <?php } else { ?>
         <li> <a href="signup.php"> Sign Up </a> </li>
